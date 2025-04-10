@@ -10,6 +10,15 @@ def ejecutar_comando(lista_elementos):
     if not lista_elementos:
         return
     
+    # Comandos internos
+    if lista_elementos[0] == 'cd':
+        try:
+            destino = lista_elementos[1] if len(lista_elementos) > 1 else os.path.expanduser("~")
+            os.chdir(destino)
+        except Exception as err:
+            print("cd:", err)
+        return
+    
 
 
 def principal():
