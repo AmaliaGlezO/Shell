@@ -109,6 +109,47 @@ def ejecutar_comando(lista_elementos):
     proceso_anterior = None
 
 
+    # Recorre cada comando en el pipeline y gestiona redirecciones
+    for i, elementos_comando in enumerate(tuberia):
+        archivo_entrada = None
+        archivo_salida = None
+        modo_salida = 'w'
+        elementos_nuevos = []
+        j = 0
+        while j < len(elementos_comando):
+            elemento = elementos_comando[j]
+            if elemento == '<':
+                if j + 1 < len(elementos_comando):
+                    archivo_entrada = elementos_comando[j + 1]
+                    j += 2
+                    continue
+                else:
+                    print("Error: falta el nombre del fichero para redirección de entrada")
+                    return
+            elif elemento == '>':
+                if j + 1 < len(elementos_comando):
+                    archivo_salida = elementos_comando[j + 1]
+                    modo_salida = 'w'
+                    j += 2
+                    continue
+                else:
+                    print("Error: falta el nombre del fichero para redirección de salida")
+                    return
+            elif elemento == '>>':
+                if j + 1 < len(elementos_comando):
+                    archivo_salida = elementos_comando[j + 1]
+                    modo_salida = 'a'
+                    j += 2
+                    continue
+                else:
+                    print("Error: falta el nombre del fichero para redirección de salida")
+                    return
+            else:
+                elementos_nuevos.append(elemento)
+                j += 1
+
+
+
     
 
 
