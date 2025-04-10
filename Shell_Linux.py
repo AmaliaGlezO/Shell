@@ -62,6 +62,30 @@ def ejecutar_comando(lista_elementos):
             if proceso.poll() is None:
                 print(f"[{trabajo['id']}] {trabajo['comando']}")
         return
+    
+    if lista_elementos[0] == 'fg':
+        if len(lista_elementos) > 1:
+            try:
+                id_trabajo = int(lista_elementos[1])
+                trabajo = next((t for t in trabajos if t['id'] == id_trabajo), None)
+                if trabajo:
+                    proceso = trabajo['proceso']
+                    print(f"Trayendo al primer plano el trabajo [{id_trabajo}]: {trabajo['comando']}")
+                    proceso.wait()
+                    trabajos.remove(trabajo)
+                else:
+                    print("fg: no existe ese trabajo")
+            except ValueError:
+                print("fg: id de trabajo inválido")
+        else:
+            if trabajos:
+                trabajo = trabajos.pop()
+                proceso = trabajo['proceso']
+                print(f"Trayendo al primer plano el trabajo [{trabajo['id']}]: {trabajo['comando']}")
+                proceso.wait()
+            else:
+                print("fg: no hay trabajos")
+        return
 
     
 
