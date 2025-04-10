@@ -86,6 +86,12 @@ def ejecutar_comando(lista_elementos):
             else:
                 print("fg: no hay trabajos")
         return
+    
+    # Detecta si se debe ejecutar en segundo plano (termina con "&")
+    ejecutar_segundo_plano = False
+    if lista_elementos and lista_elementos[-1] == '&':
+        ejecutar_segundo_plano = True
+        lista_elementos = lista_elementos[:-1]
 
     
 
