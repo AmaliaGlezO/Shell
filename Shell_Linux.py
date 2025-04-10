@@ -9,6 +9,20 @@ def reindexar_historial():
     comandos = list(historial.values())
     historial = {i+1: cmd for i, cmd in enumerate(comandos)}
 
+def agregar_comando_al_historial(comando):
+    global historial
+    # Eliminar si ya existe el comando
+    claves_a_eliminar = [clave for clave, cmd in historial.items() if cmd == comando]
+    for clave in claves_a_eliminar:
+        del historial[clave]
+    # Agregar el nuevo comando al final
+    historial[len(historial)+1] = comando
+    # Si se exceden los 50 comandos, eliminar el primero y reindexar
+    if len(historial) > 50:
+        del historial[min(historial.keys())]
+        reindexar_historial()
+
+
 def obtener_historial_como_lista():
     return list(historial.items())
 
