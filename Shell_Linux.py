@@ -14,4 +14,7 @@ if __name__ == "__main__":
 
 
 def ejecutar_comando(lista_elementos):
-    subprocess.run(lista_elementos, shell=True)
+    global trabajos, contador_trabajos
+
+    if not lista_elementos:
+        return
