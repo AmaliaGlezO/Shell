@@ -169,6 +169,22 @@ def ejecutar_comando(lista_elementos):
                 if entrada:
                     entrada.close()
                 return
+            
+        # Si hay un proceso anterior en la tubería, su salida se conecta como entrada
+        if proceso_anterior is not None:
+            entrada = proceso_anterior.stdout
+
+        # Para comandos intermedios se crea un pipe para la salida
+        if i < cantidad_comandos - 1:
+            proc = subprocess.Popen(elementos_nuevos, stdin=entrada,
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        else:
+            proc = subprocess.Popen(elementos_nuevos, stdin=entrada,
+                                    stdout=salida if salida is not None else subprocess.PIPE,
+                                    stderr=subprocess.PIPE, text=True)
+        procesos.append(proc)
+        proceso_anterior = proc
+
 
 
 
