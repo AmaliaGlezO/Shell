@@ -2,7 +2,7 @@
 import os
 import subprocess
 
-
+historial = {}
 
 def ejecutar_comando(lista_elementos):
     global trabajos, contador_trabajos
