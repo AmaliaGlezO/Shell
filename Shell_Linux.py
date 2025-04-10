@@ -1,5 +1,6 @@
 # shell_v1.py - Versión básica
 import os
+import re
 import subprocess
 
 historial = {}
@@ -25,6 +26,13 @@ def agregar_comando_al_historial(comando):
 
 def obtener_historial_como_lista():
     return list(historial.items())
+
+
+def analizar_linea_comando(linea):
+    elementos = re.findall(r'>>|[><|&]|[^ ><|&]+', linea)
+    elementos = [elem.strip() for elem in elementos if elem.strip() != '']
+    return elementos
+
 
 def ejecutar_comando(lista_elementos):
     global trabajos, contador_trabajos
