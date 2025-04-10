@@ -160,6 +160,16 @@ def ejecutar_comando(lista_elementos):
             print("Error abriendo el fichero de entrada:", err)
             return
 
+    # Para el último comando, si se especifica redirección de salida
+    if i == cantidad_comandos - 1 and archivo_salida is not None:
+        try:
+            salida = open(archivo_salida, modo_salida)
+        except Exception as err:
+            print("Error abriendo el fichero de salida:", err)
+            if entrada:
+                entrada.close()
+            return
+
 
 
 
