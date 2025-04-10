@@ -4,6 +4,14 @@ import subprocess
 
 historial = {}
 
+def reindexar_historial():
+    global historial
+    comandos = list(historial.values())
+    historial = {i+1: cmd for i, cmd in enumerate(comandos)}
+
+def obtener_historial_como_lista():
+    return list(historial.items())
+
 def ejecutar_comando(lista_elementos):
     global trabajos, contador_trabajos
 
@@ -17,6 +25,11 @@ def ejecutar_comando(lista_elementos):
             os.chdir(destino)
         except Exception as err:
             print("cd:", err)
+        return
+    
+    if lista_elementos[0] == 'history':
+        for clave, cmd in obtener_historial_como_lista():
+            print(f"{clave}  {cmd}")
         return
     
 
