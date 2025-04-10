@@ -148,6 +148,20 @@ def ejecutar_comando(lista_elementos):
                 elementos_nuevos.append(elemento)
                 j += 1
 
+    # Configuración de redirecciones de entrada y salida
+    entrada = None
+    salida = None
+
+    # Para el primer comando, si se especifica redirección de entrada
+    if i == 0 and archivo_entrada is not None:
+        try:
+            entrada = open(archivo_entrada, 'r')
+        except Exception as err:
+            print("Error abriendo el fichero de entrada:", err)
+            return
+
+
+
 
 
     
