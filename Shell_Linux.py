@@ -54,6 +54,14 @@ def ejecutar_comando(lista_elementos):
             print(f"{clave}  {cmd}")
         return
     
+    if lista_elementos[0] == 'jobs':
+        for trabajo in trabajos:
+            proceso = trabajo['proceso']
+            if proceso.poll() is None:
+                print(f"[{trabajo['id']}] {trabajo['comando']}")
+        return
+
+    
 
 
 def principal():
