@@ -2,15 +2,6 @@
 import os
 import subprocess
 
-def main():
-    while True:
-        comando = input("$ ").strip()
-        if comando == "exit":
-            break
-        os.system(comando)
-
-if __name__ == "__main__":
-    main()
 
 
 def ejecutar_comando(lista_elementos):
@@ -18,3 +9,20 @@ def ejecutar_comando(lista_elementos):
 
     if not lista_elementos:
         return
+    
+
+
+def principal():
+    global historial
+    while True:
+        try:
+            linea_comando = input("$ ")
+        except EOFError:
+            print()
+            break
+
+        if not linea_comando.strip():
+            continue
+
+if __name__ == "__main__":
+    principal()
