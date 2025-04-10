@@ -1,20 +1,27 @@
-name: Test Node.js App
-on: [push]
+name: Test Python Script
+
+on: [push, pull_request]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Instalar Node.js
-        uses: actions/setup-node@v3
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Python
+        uses: actions/setup-python@v4
         with:
-          node-version: 18
-      
-      - name: Instalar dependencias
-        run: npm install
-      
-      - name: Ejecutar tests
-        run: npm test
+          python-version: '3.10'
+
+      - name: Instalar dependencias (si tenés)
+        run: |
+          pip install -r requirements.txt || true
+
+      - name: Verificar que el script no tenga errores de sintaxis
+        run: python -m py_compile shell_v1.py
+
+      # Opcional: ejecutar tests si tenés
+      # - name: Correr tests
+      #   run: python -m unittest discover tests/
