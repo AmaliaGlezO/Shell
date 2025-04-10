@@ -1,14 +1,13 @@
+# shell_v1.py - Versión básica
 import os
-import re
 import subprocess
 
-historial = {}
-# Lista de trabajos en segundo plano
-trabajos = []
-contador_trabajos = 1  # Identificador incremental para trabajos
+def main():
+    while True:
+        comando = input("$ ").strip()
+        if comando == "exit":
+            break
+        os.system(comando)
 
-def reindexar_historial():
-    """Reindexa el historial para que las claves sean consecutivas a partir del 1."""
-    global historial
-    comandos = list(historial.values())
-    historial = {i+1: cmd for i, cmd in enumerate(comandos)}
+if __name__ == "__main__":
+    main()
