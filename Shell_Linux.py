@@ -185,6 +185,28 @@ def ejecutar_comando(lista_elementos):
         procesos.append(proc)
         proceso_anterior = proc
 
+    # Si se indicó ejecución en segundo plano, se registra el trabajo
+    if ejecutar_segundo_plano:
+        trabajos.append({'id': contador_trabajos, 'proceso': procesos[-1], 'comando': " ".join(lista_elementos)})
+        print(f"[{contador_trabajos}] {procesos[-1].pid}")
+        contador_trabajos += 1
+    else:
+        salida_final, error_final = procesos[-1].communicate()
+        if salida_final:
+            print(salida_final, end='')
+        if error_final:
+            print(error_final, end='')
+        # Espera a que finalicen los demás procesos del pipeline
+        for proc in procesos[:-1]:
+            proc.wait()
+        if salida is not None:
+            salida.close()
+        if entrada is not None and hasattr(entrada, 'close'):
+            try:
+                entrada.close()
+            except Exception:
+                pass
+
 
 
 
