@@ -93,6 +93,22 @@ def ejecutar_comando(lista_elementos):
         ejecutar_segundo_plano = True
         lista_elementos = lista_elementos[:-1]
 
+    # Separa la línea en comandos unidos por pipe (|)
+    tuberia = []
+    comando_actual = []
+    for elemento in lista_elementos:
+        if elemento == '|':
+            tuberia.append(comando_actual)
+            comando_actual = []
+        else:
+            comando_actual.append(elemento)
+    tuberia.append(comando_actual)
+
+    procesos = []
+    cantidad_comandos = len(tuberia)
+    proceso_anterior = None
+
+
     
 
 
