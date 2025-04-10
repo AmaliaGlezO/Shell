@@ -4,6 +4,8 @@ import re
 import subprocess
 
 historial = {}
+trabajos = []
+contador_trabajos = 1
 
 def reindexar_historial():
     global historial
