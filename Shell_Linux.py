@@ -207,14 +207,6 @@ def ejecutar_comando(lista_elementos):
             except Exception:
                 pass
 
-
-
-
-
-
-    
-
-
 def principal():
     global historial
     while True:
@@ -227,5 +219,49 @@ def principal():
         if not linea_comando.strip():
             continue
 
-if __name__ == "__main__":
+        # Manejo para re-ejecución de comandos:
+        # !!   => último comando
+        # !n   => comando número n del historial
+        # !abc => último comando que comience por "abc"
+        if linea_comando.startswith("!"):
+            if linea_comando.startswith("!!"):
+                if historial:
+                    # Se toma el último comando del historial
+                    ultima_clave = max(historial.keys())
+                    linea_comando = historial[ultima_clave]
+                    print(linea_comando)
+                else:
+                    print("No hay comandos en el historial.")
+                    continue
+            elif linea_comando[1:].isdigit():
+                indice = int(linea_comando[1:])
+                if indice in historial:
+                    linea_comando = historial[indice]
+                    print(linea_comando)
+                else:
+                    print("No existe ese comando en el historial.")
+                    continue
+            else:
+                prefijo = linea_comando[1:]
+                encontrado = None
+                # Se recorre el historial en orden (del más antiguo al más reciente)
+                for clave, cmd in obtener_historial_como_lista():
+                    if cmd.startswith(prefijo):
+                        encontrado = cmd
+                if encontrado:
+                    linea_comando = encontrado
+                    print(linea_comando)
+                else:
+                    print("No se encontró ningún comando que comience con", prefijo)
+                    continue
+
+        # Si la línea no empieza con espacio, se agrega al historial
+        if not linea_comando.startswith(" "):
+            agregar_comando_al_historial(linea_comando)
+
+        elementos_linea = analizar_linea_comando(linea_comando)
+        ejecutar_comando(elementos_linea)
+
+if __name__ == '__main__':
     principal()
+
