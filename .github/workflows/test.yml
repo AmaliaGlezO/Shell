@@ -20,7 +20,7 @@ jobs:
           pip install -r requirements.txt || true
 
       - name: Verificar que el script no tenga errores de sintaxis
-        run: python -m py_compile shell_v1.py
+        run: python -m py_compile Shell_Linux.py
 
       # Opcional: ejecutar tests si tenés
       # - name: Correr tests
